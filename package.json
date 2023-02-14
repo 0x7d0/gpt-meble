@@ -1,18 +1,20 @@
 {
   "name": "my-app",
   "version": "1.0.0",
-  "description": "A simple Next.js web application for searching interior design products on popular online shops in Poland using Google and comparing prices",
+  "description": "My Next.js app",
+  "main": "index.js",
+  "dependencies": {
+    "next": "^12.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "axios": "^0.23.0",
+    "cheerio": "^1.0.0-rc.10",
+    "antd": "^4.16.11"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-  },
-  "dependencies": {
-    "axios": "^0.24.0",
-    "cheerio": "^1.0.0-rc.10",
-    "next": "^12.0.7",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-    "andt":"^4.16.11"
   }
 }
+
