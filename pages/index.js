@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Input, Button, List } from 'antd';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
@@ -28,7 +29,7 @@ export default function Home() {
           }
         });
 
-        setResults(items);
+        setResults(items.slice(0, 10));
         router.push(`/?q=${query}`);
       });
     }
@@ -44,23 +45,40 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
-        <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
-        <button type="submit">Search</button>
-      </form>
+    <div style={{ margin: '24px', maxWidth: '600px', width: '100%', marginLeft: 'auto', marginRight: 'auto' }}>
+      <Input.Search
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search for modern chair or glass table"
+        enterButton={
+          <Button type="primary" onClick={handleSearch}>
+            Search
+          </Button>
+        }
+        size="large"
+        style={{ marginBottom: '24px' }}
+      />
       {results.length > 0 && (
-        <ul>
-          {results.map((item) => (
-            <li key={item.link}>
-              <a href={item.link} target="_blank">
-                <img src={item.image} alt={item.title} />
-                <h3>{item.title}</h3>
-                <p>{item.price}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <List
+          itemLayout="vertical"
+          size="large"
+          dataSource={results}
+          renderItem={(item) => (
+            <List.Item
+              key={item.link}
+              extra={
+                <img
+                  width={272}
+                  alt={item.title}
+                  src={item.image}
+                />
+              }
+            >
+              <List.Item.Meta title={<a href={item.link} target="_blank">{item.title}</a>} />
+              <div>{item.price}</div>
+            </List.Item>
+          )}
+        />
       )}
     </div>
   );
